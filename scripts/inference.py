@@ -7,7 +7,6 @@ from unsloth import FastLanguageModel
 
 class IntentClassification:
     def __init__(self, model_path_or_config):
-        # Kiem tra neu la file yaml thi doc cau hinh, nguoc lai coi la model name
         if isinstance(model_path_or_config, str) and model_path_or_config.endswith(".yaml"):
             with open(model_path_or_config, "r") as f:
                 config = yaml.safe_load(f)
@@ -78,7 +77,6 @@ def evaluate_performance(model_path, test_df, label_text):
     return accuracy
 
 if __name__ == "__main__":
-    # Doc du lieu test va lay 100 mau ngau nhien
     test_path = "sample_data/test.csv"
     if not os.path.exists(test_path):
         print(f"Error: {test_path} not found.")
@@ -87,22 +85,18 @@ if __name__ == "__main__":
     full_test_df = pd.read_csv(test_path)
     sampled_test = full_test_df.sample(n=100, random_state=42).reset_index(drop=True)
     
-    # 1. Danh gia Baseline (Truyen truc tiep model name, khong can file yaml)
-    baseline_model = "unsloth/Llama-3.1-8B" [cite: 2]
+    baseline_model = "unsloth/Llama-3.1-8B"
     baseline_acc = evaluate_performance(baseline_model, sampled_test, "Baseline Model")
     
-    # 2. Danh gia Fine-tuned (Su dung file yaml theo yeu cau giao vien)
-    finetuned_config = "configs/inference.yaml" [cite: 1]
+    finetuned_config = "configs/inference.yaml"
     finetuned_acc = evaluate_performance(finetuned_config, sampled_test, "Fine-tuned Model")
     
-    # In ket qua so sanh
     print("\n" + "="*30)
     print("COMPARISON RESULTS (100 SAMPLES)")
     print(f"Baseline Accuracy:  {baseline_acc:.2f}%")
     print(f"Fine-tuned Accuracy: {finetuned_acc:.2f}%")
     print("="*30 + "\n")
     
-    # 3. Usage Example (Input ngau nhien de demo tinh truc quan)
     print("--- USAGE EXAMPLE ---")
     inference_tool = IntentClassification(finetuned_config)
     

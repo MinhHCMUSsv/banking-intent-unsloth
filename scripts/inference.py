@@ -6,15 +6,15 @@ import yaml
 from unsloth import FastLanguageModel
 
 class IntentClassification:
-    def __init__(self, model_path_or_config):
-        if isinstance(model_path_or_config, str) and model_path_or_config.endswith(".yaml"):
-            with open(model_path_or_config, "r") as f:
+    def __init__(self, model_path):
+        if isinstance(model_path, str) and model_path.endswith(".yaml"):
+            with open(model_path, "r") as f:
                 config = yaml.safe_load(f)
             model_name = config.get("model_path", "llama_lora")
             max_seq_length = config.get("max_seq_length", 2048)
             load_in_4bit = config.get("load_in_4bit", True)
         else:
-            model_name = model_path_or_config
+            model_name = model_path
             max_seq_length = 2048
             load_in_4bit = True
 
@@ -82,14 +82,13 @@ if __name__ == "__main__":
         print(f"Error: {test_path} not found.")
         exit()
         
-    full_test_df = pd.read_csv(test_path)
-    sampled_test = full_test_df.sample(n=100, random_state=42).reset_index(drop=True)
+    test_df = pd.read_csv(test_path)
     
     baseline_model = "unsloth/Llama-3.1-8B"
-    baseline_acc = evaluate_performance(baseline_model, sampled_test, "Baseline Model")
+    baseline_acc = evaluate_performance(baseline_model, test_df, "Baseline Model")
     
     finetuned_config = "configs/inference.yaml"
-    finetuned_acc = evaluate_performance(finetuned_config, sampled_test, "Fine-tuned Model")
+    finetuned_acc = evaluate_performance(finetuned_config, test_df, "Fine-tuned Model")
     
     print("\n" + "="*30)
     print("COMPARISON RESULTS (100 SAMPLES)")

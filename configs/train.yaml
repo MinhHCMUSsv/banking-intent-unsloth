@@ -14,7 +14,7 @@ data:
   dataset_name: "PolyAI/banking77"
   train_sample_size: 6000
   val_size: 0.1
-  test_sample_size: 1000
+  test_sample_size: 100
   seed: 42
 
 training:

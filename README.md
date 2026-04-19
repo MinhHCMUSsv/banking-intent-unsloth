@@ -100,6 +100,7 @@ Below are the specific hyperparameters and configurations used for fine-tuning t
 * **Optimizer:** `adamw_8bit` (optimized for memory efficiency).
 * **Number of training epochs:** `1` epoch.
 * **Maximum sequence length:** `2048` tokens.
-* **Regularization techniques:** * Weight decay set to `0.001`.
+* **Regularization techniques:** 
+  * Weight decay set to `0.001`.
   * LoRA adaptation used for parameter-efficient fine-tuning (Rank `r=16`, `alpha=16`, `dropout=0`).
 * **Augmentation techniques:** No explicit data augmentation was applied. The dataset was formatted using standard Alpaca instruction-response templates.

@@ -11,7 +11,7 @@ This project focuses on fine-tuning the **Llama-3.1-8B** model using **LoRA** (L
 ## 📺 Video Demonstration
 > **IMPORTANT:** This video demonstrates the execution of the inference script, accuracy results on the test set, and real-time interaction.
 > 
-> 🔗 **[Click here to watch the Video Demo](DÁN_LINK_GOOGLE_DRIVE_CỦA_BẠN_VÀO_ĐÂY)**
+> 🔗 **[Click here to watch the Video Demo](https://drive.google.com/drive/folders/1wzbJXDGF1cLN-cNT3NVz8YAC6_6s4UFQ?usp=sharing)**
 
 ---
 
@@ -37,11 +37,11 @@ banking-intent-unsloth/
 └── README.md               # Documentation
 ```
 ## 🛠️ 1. Environment Setup
-It is highly recommended to use Google Colab (T4 GPU) or a Linux environment with an NVIDIA GPU and CUDA 12+ installed.
+This project is exclusively designed to run on Google Colab. Please open a new Google Colab notebook, ensure that the hardware accelerator is set to T4 GPU (Runtime > Change runtime type), and execute the following commands in the notebook cells
 ```bash
 !git clone https://github.com/MinhHCMUSsv/banking-intent-unsloth.git
 %cd banking-intent-unsloth
-pip install -r requirements.txt
+!pip install -r requirements.txt
 ```
 ## 🚀 2. Data Preparation & Training
 The process uses the PolyAI/banking77 dataset and the configurations specified in configs/train.yaml (utilizing 4-bit quantization).
@@ -56,17 +56,19 @@ This section evaluates the model's accuracy on the independent test set (100 sam
 !bash inference.sh
 ```
 ### ⏩ Alternative: Quick Inference on Google Colab (Skip Training)
-If you just want to run the inference and evaluate the model without going through the entire training pipeline, you can download the pre-trained LoRA weights directly from my public Google Drive and run it on Google Colab.
+If you just want to run the inference and evaluate the model without going through the entire training pipeline, you can download the fine-tuned LoRA weights directly from my public Google Drive and run it on Google Colab.
 
 **Steps to run on Colab:**
 1. Open a new Google Colab notebook and enable the **T4 GPU**.
 2. Clone this repository and install the requirements:
    ```bash
-   git clone https://github.com/MinhHCMUSsv/banking-intent-unsloth.git
+   !git clone https://github.com/MinhHCMUSsv/banking-intent-unsloth.git
    %cd banking-intent-unsloth
    !pip install -r requirements.txt
    ```
 3. Download the fine-tuned llama_lora.zip from my public Drive, then upload on Colab and extract it:
+
+   🔗 **[Click here to download the fine-tuned model](https://drive.google.com/drive/folders/1wzbJXDGF1cLN-cNT3NVz8YAC6_6s4UFQ?usp=sharing)**
    ```bash
    !unzip llama_lora.zip -d llama_lora
    !mv llama_lora/llama_lora/* llama_lora/
@@ -76,6 +78,20 @@ If you just want to run the inference and evaluate the model without going throu
    ```bash
    !bash inference.sh
    ```
+### 💻 Programmatic Usage (IntentClassification Class)
+Below is a short usage example showing how to initialize and call the inference class programmatically in Python after training:
+```python
+from scripts.inference import IntentClassification
+
+# 1. Initialize the classifier using the configuration file
+classifier = IntentClassification("configs/inference.yaml")
+
+# 2. Predict intent for a custom message
+message = "I lost my credit card, how can I freeze it?"
+predicted_label = classifier(message)
+
+print(f"Predicted Intent: {predicted_label}")
+```
 ## ⚙️ Hyperparameters Configuration
 Below are the specific hyperparameters and configurations used for fine-tuning the model (defined in `configs/train.yaml`):
 

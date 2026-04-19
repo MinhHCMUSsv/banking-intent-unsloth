@@ -4,6 +4,10 @@ import pandas as pd
 import torch
 import yaml
 from unsloth import FastLanguageModel
+import warnings
+import transformers
+warnings.filterwarnings("ignore")
+transformers.logging.set_verbosity_error()
 
 class IntentClassification:
     def __init__(self, model_path):

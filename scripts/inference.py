@@ -67,13 +67,6 @@ def evaluate_performance(model_path, test_df, label_text):
             
     accuracy = (correct / total) * 100
     
-    # Giai phong bo nho GPU
-    del classifier.model
-    del classifier.tokenizer
-    del classifier
-    gc.collect()
-    torch.cuda.empty_cache()
-    
     return accuracy
 
 if __name__ == "__main__":
@@ -96,11 +89,13 @@ if __name__ == "__main__":
     print(f"Fine-tuned Accuracy: {finetuned_acc:.2f}%")
     print("="*30 + "\n")
     
-    print("--- USAGE EXAMPLE ---")
-    inference_tool = IntentClassification(finetuned_config)
     
+    inference_tool = IntentClassification(finetuned_config)
+    print("\n" + "="*30)
+    print("--- USAGE EXAMPLE ---")
     custom_query = "My credit card was stolen, how can I block it immediately?"
     prediction = inference_tool(custom_query)
     
     print(f"Input: {custom_query}")
     print(f"Prediction: {prediction}")
+    print("\n" + "="*30)

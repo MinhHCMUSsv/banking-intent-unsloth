@@ -88,7 +88,7 @@ if __name__ == "__main__":
     finetuned_acc = evaluate_performance(finetuned_config, test_df, "Fine-tuned Model")
     
     print("\n" + "="*30)
-    print("COMPARISON RESULTS (100 SAMPLES)")
+    print(f"COMPARISON RESULTS ({len(test_df)} SAMPLES)")
     print(f"Baseline Accuracy:  {baseline_acc:.2f}%")
     print(f"Fine-tuned Accuracy: {finetuned_acc:.2f}%")
     print("="*30 + "\n")

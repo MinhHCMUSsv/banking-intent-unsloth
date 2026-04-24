@@ -30,7 +30,7 @@ banking-intent-unsloth/
 ├── sample_data/
 │   ├── train.csv           # Training set
 |   ├── val.csv             # Validation set
-│   └── test.csv            # Testing set (100 samples)
+│   └── test.csv            # Testing set (500 samples)
 ├── train.sh                # Shortcut for data prep + training
 ├── inference.sh            # Shortcut for running evaluation/demo
 ├── requirements.txt        # Environment dependencies
@@ -51,7 +51,7 @@ To fully automate the data downloading, preprocessing, and model fine-tuning, si
 ```
 (Note: This single command sequentially executes preprocess_data.py to generate the CSV files in sample_data/, and then runs train.py to fine-tune the model. The final adapter weights will be saved in the llama_lora/ directory).
 ## 🧪 3. Inference & Evaluation
-This section evaluates the model's accuracy on the independent test set (100 samples) and launches an interactive demo.
+This section evaluates the model's accuracy on the independent test set (500 samples) and launches an interactive demo.
 ```bash
 !bash inference.sh
 ```
